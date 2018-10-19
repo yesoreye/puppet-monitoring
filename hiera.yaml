@@ -1,0 +1,8 @@
+version: 5
+defaults:
+  datadir: /etc/puppet/hieradata
+hierarchy:
+  - name: "YAML data: environments, stages, roles, common"
+    data_hash: yaml_data
+    paths:
+      - common.yaml
