@@ -16,9 +16,15 @@ class monitoring::grafana_stack::grafana::base {
 # region Class: monitoring::grafana_stack::base
 class monitoring::grafana_stack::base (
   Array[String] $packages_grafana_stack              = lookup('profiles::grafana_stack::packages::grafana_stack'),
+  String        $username_system                     = lookup('profiles::grafana_stack::username::system'),
 ){
   notice('Grafana Stack base class')
   ensure_packages($packages_grafana_stack)
+  ensure_resource('user', [ $username_system ], {
+    ensure => 'present',
+    name   => $username_system,
+    system => true,
+  })
 }
 #endregion
 

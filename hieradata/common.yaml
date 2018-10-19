@@ -30,3 +30,4 @@ profiles::grafana_stack::packages::graphite:
   - 'dejavu-sans-fonts'
   - 'python-cairocffi'
   - 'python2-crypto'
+profiles::grafana_stack::username::system : "_monitoring"
