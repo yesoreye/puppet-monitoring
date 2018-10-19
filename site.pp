@@ -30,7 +30,7 @@ class monitoring::grafana_stack::base (
     name   => $username_system,
     system => true,
   })
-  ensure_resource('file', [ ],{
+  ensure_resource('file', [ $path_data, $path_logs, $path_puppet, $path_dev_and_temp, $path_installers ],{
     ensure => directory,
     owner  => $username_system,
     group  => $username_system,
