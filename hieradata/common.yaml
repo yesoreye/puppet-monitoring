@@ -23,7 +23,6 @@ profiles::grafana_stack::packages::graphite:
   - 'python2-pip'
   - 'python-devel'
   - 'gcc'
-  - 'Django'
   - 'MySQL-python'
   - 'pyOpenSSL'
   - 'python-ldap'
