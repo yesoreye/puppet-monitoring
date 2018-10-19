@@ -1,3 +1,10 @@
+# region Class: monitoring::grafana_stack::graphite::allinone
+class monitoring::grafana_stack::graphite::allinone (){
+  notice('Graphite All In One class')
+  include ::graphite
+}
+#endregion
+
 # region Class: monitoring::grafana_stack::graphite::base
 class monitoring::grafana_stack::graphite::base (
   Array[String] $packages_graphite             = lookup('profiles::grafana_stack::packages::graphite'),
@@ -58,6 +65,12 @@ node default {
   include ::monitoring::grafana_stack::base
   include ::monitoring::grafana_stack::graphite::base
   include ::monitoring::grafana_stack::grafana::base
+  include ::monitoring::grafana_stack::graphite::allinone
+
+  Class['monitoring::base']                             -> Class['monitoring::grafana_stack::base']
+  Class['monitoring::grafana_stack::base']              -> Class['monitoring::grafana_stack::graphite::base']
+  Class['monitoring::grafana_stack::base']              -> Class['monitoring::grafana_stack::grafana::base']
+  Class['monitoring::grafana_stack::graphite::base']    -> Class['monitoring::grafana_stack::graphite::allinone']
 
 }
 #endregion

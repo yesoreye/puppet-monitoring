@@ -1,4 +1,6 @@
+## General Settings
 welcome : "Welcome to Puppet monitoring"
+## Base Settings
 profiles::grafana_stack::packages::base:
   - "wget"
   - "sudo"
@@ -36,3 +38,15 @@ profiles::grafana_stack::path::logs: "%{lookup('profiles::grafana_stack::path::d
 profiles::grafana_stack::path::puppet_scripts: "/etc/puppet"
 profiles::grafana_stack::path::dev_and_temp_packages: "%{lookup('profiles::grafana_stack::path::puppet_scripts')}/.dev"
 profiles::grafana_stack::path::installers: "%{lookup('profiles::grafana_stack::path::dev_and_temp_packages')}/packages"
+## Graphite Settings
+graphite::gr_django_init_command: bash -c 'chown -R %{lookup('profiles::grafana_stack::username::system')}:%{lookup('profiles::grafana_stack::username::system')} /opt/graphite/ && PYTHONPATH=/opt/graphite/webapp django-admin.py migrate --settings=graphite.settings --run-syncdb && chown %{lookup('profiles::grafana_stack::username::system')}:%{lookup('profiles::grafana_stack::username::system')} /opt/graphite/storage/log/*.log /opt/graphite/storage/graphite.db'
+graphite::gr_django_ver: '1.11'
+graphite::gr_django_tagging_ver: '0.4.6'
+graphite::gr_whisper_ver : "1.0.2"
+graphite::gr_carbon_ver : "1.0.2"
+graphite::gr_graphite_ver : "1.0.2"
+graphite::gr_web_server : "wsgionly"
+graphite::gr_web_user : "%{lookup('profiles::grafana_stack::username::system')}"
+graphite::gr_web_group : "%{lookup('profiles::grafana_stack::username::system')}"
+graphite::gr_web_server_port : 8888
+graphite::gr_timezone : "Europe/London"
