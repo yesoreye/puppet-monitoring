@@ -1,6 +1,7 @@
 # region Class: monitoring::grafana_stack::graphite::base
 class monitoring::grafana_stack::graphite::base {
   notice('Graphite base class')
+  ensure_packages(['MySQL-python','pyOpenSSL','python-ldap','python-memcached','python-psycopg2','python-zope-interface','python-tzlocal','python-sqlite3dbm', 'dejavu-fonts-common', 'dejavu-sans-fonts', 'python-cairocffi','python2-crypto'])
 }
 #endregion
 
