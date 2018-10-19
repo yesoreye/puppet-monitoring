@@ -20,6 +20,15 @@ profiles::grafana_stack::packages::grafana_stack:
   - "openssl-devel"
   - "policycoreutils-python"
 profiles::grafana_stack::packages::graphite:
+  - 'python2-pip'
+  - 'python-devel'
+  - 'gcc'
+  - 'django-tagging'
+  - 'graphite-web'
+  - 'twisted'
+  - 'txamqp'
+  - 'whisper'
+  - 'Django'
   - 'MySQL-python'
   - 'pyOpenSSL'
   - 'python-ldap'
