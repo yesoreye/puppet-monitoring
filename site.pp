@@ -1,6 +1,6 @@
 # region Class: monitoring::grafana_stack::graphite::base
 class monitoring::grafana_stack::graphite::base (
-Array[String] $packages_graphite             = lookup('profiles::grafana_stack::packages::graphite'),
+  Array[String] $packages_graphite             = lookup('profiles::grafana_stack::packages::graphite'),
 ){
   notice('Graphite base class')
   ensure_packages($packages_graphite)
