@@ -1,5 +1,5 @@
 welcome : "Welcome to Puppet monitoring"
-profiles::grafana_stack::base::packages_base:
+profiles::grafana_stack::packages::base:
   - "wget"
   - "sudo"
   - "openssh-server"
@@ -12,8 +12,21 @@ profiles::grafana_stack::base::packages_base:
   - "nc"
   - "net-tools"
   - "jq"
-profiles::grafana_stack::base::packages_grafana_stack:
+profiles::grafana_stack::packages::grafana_stack:
   - "epel-release"
   - "libffi-devel"
   - "openssl-devel"
   - "policycoreutils-python"
+profiles::grafana_stack::packages::graphite:
+  - 'MySQL-python'
+  - 'pyOpenSSL'
+  - 'python-ldap'
+  - 'python-memcached'
+  - 'python-psycopg2'
+  - 'python-zope-interface'
+  - 'python-tzlocal'
+  - 'python-sqlite3dbm'
+  - 'dejavu-fonts-common'
+  - 'dejavu-sans-fonts'
+  - 'python-cairocffi'
+  - 'python2-crypto'
