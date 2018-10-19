@@ -1,15 +1,15 @@
 # region Class: monitoring::grafana_stack::nginx::allinone
 class monitoring::grafana_stack::nginx::allinone {
   notice('Nginx All in one class')
+  ensure_resource('file', [ '/etc/nginx/conf.d' ],{
+    ensure => directory,
+  })
 }
 #endregion
 
 # region Class: monitoring::grafana_stack::nginx::base
 class monitoring::grafana_stack::nginx::base {
   notice('Nginx Base class')
-  ensure_resource('file', [ '/etc/nginx/', '/etc/nginx/conf.d' ],{
-    ensure => directory,
-  })
   include ::nginx
 }
 #endregion
