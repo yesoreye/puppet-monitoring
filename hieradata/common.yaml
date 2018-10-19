@@ -31,3 +31,8 @@ profiles::grafana_stack::packages::graphite:
   - 'python-cairocffi'
   - 'python2-crypto'
 profiles::grafana_stack::username::system : "_monitoring"
+profiles::grafana_stack::path::data: "/opt/data"
+profiles::grafana_stack::path::logs: "%{lookup('profiles::grafana_stack::path::data')}/log"
+profiles::grafana_stack::path::puppet_scripts: "/etc/puppet"
+profiles::grafana_stack::path::dev_and_temp_packages: "%{lookup('profiles::grafana_stack::path::puppet_scripts')}/.dev"
+profiles::grafana_stack::path::installers: "%{lookup('profiles::grafana_stack::path::dev_and_temp_packages')}/packages"

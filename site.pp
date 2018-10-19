@@ -17,6 +17,11 @@ class monitoring::grafana_stack::grafana::base {
 class monitoring::grafana_stack::base (
   Array[String] $packages_grafana_stack              = lookup('profiles::grafana_stack::packages::grafana_stack'),
   String        $username_system                     = lookup('profiles::grafana_stack::username::system'),
+  String        $path_data                           = lookup('profiles::grafana_stack::path::data'),
+  String        $path_logs                           = lookup('profiles::grafana_stack::path::logs'),
+  String        $path_puppet                         = lookup('profiles::grafana_stack::path::puppet_scripts'),
+  String        $path_dev_and_temp                   = lookup('profiles::grafana_stack::path::dev_and_temp_packages'),
+  String        $path_installers                     = lookup('profiles::grafana_stack::path::installers'),
 ){
   notice('Grafana Stack base class')
   ensure_packages($packages_grafana_stack)
@@ -24,6 +29,11 @@ class monitoring::grafana_stack::base (
     ensure => 'present',
     name   => $username_system,
     system => true,
+  })
+  ensure_resource('file', [ ],{
+    ensure => directory,
+    owner  => $username_system,
+    group  => $username_system,
   })
 }
 #endregion
