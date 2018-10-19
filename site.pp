@@ -42,7 +42,6 @@ class monitoring::grafana_stack::nginx::allinone {
         }
       }
     },
-    notify               => Service['nginx'],
     require              => [
       Service['nginx'],
       Selinux::Port['allow-graphite-8888']
