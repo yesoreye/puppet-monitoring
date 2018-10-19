@@ -55,3 +55,5 @@ graphite::gr_web_user : "%{lookup('profiles::grafana_stack::username::system')}"
 graphite::gr_web_group : "%{lookup('profiles::grafana_stack::username::system')}"
 graphite::gr_web_server_port : 8888
 graphite::gr_timezone : "Europe/London"
+## Nginx Settings
+nginx::daemon_user :  "%{lookup('profiles::grafana_stack::username::system')}"

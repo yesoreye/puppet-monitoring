@@ -1,11 +1,15 @@
-# Class: monitoring::grafana_stack::nginx::allinone
+# region Class: monitoring::grafana_stack::nginx::allinone
 class monitoring::grafana_stack::nginx::allinone {
   notice('Nginx All in one class')
 }
-# Class: monitoring::grafana_stack::nginx::base
+#endregion
+
+# region Class: monitoring::grafana_stack::nginx::base
 class monitoring::grafana_stack::nginx::base {
   notice('Nginx Base class')
+  include ::nginx
 }
+#endregion
 
 # region Class: monitoring::grafana_stack::graphite::allinone
 class monitoring::grafana_stack::graphite::allinone (){
