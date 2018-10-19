@@ -19,7 +19,7 @@ class monitoring::grafana_stack::base {
 # region Class: monitoring::base
 class monitoring::base {
 
-  notice('Base class')
+  ensure_packages(['wget','nano','git','nc','jq'])
 
 }
 #endregion
