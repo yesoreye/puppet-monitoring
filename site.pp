@@ -12,15 +12,21 @@ class monitoring::grafana_stack::grafana::base {
 #endregion
 
 # region Class: monitoring::grafana_stack::base
-class monitoring::grafana_stack::base {
+class monitoring::grafana_stack::base (
+  Array[String] $packages_grafana_stack              = lookup('profiles::grafana_stack::base::packages_grafana_stack'),
+){
   notice('Grafana Stack base class')
+  ensure_packages($packages_grafana_stack)
 }
 #endregion
 
 # region Class: monitoring::base
-class monitoring::base {
+class monitoring::base (
+  Array[String] $packages_base              = lookup('profiles::grafana_stack::base::packages_base'),
+){
 
-  ensure_packages(['wget','nano','git','nc','jq'])
+  notice('Base class')
+  ensure_packages($packages_base)
 
 }
 #endregion
