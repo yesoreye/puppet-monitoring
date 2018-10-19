@@ -1,3 +1,12 @@
+# Class: monitoring::grafana_stack::nginx::allinone
+class monitoring::grafana_stack::nginx::allinone {
+  notice('Nginx All in one class')
+}
+# Class: monitoring::grafana_stack::nginx::base
+class monitoring::grafana_stack::nginx::base {
+  notice('Nginx Base class')
+}
+
 # region Class: monitoring::grafana_stack::graphite::allinone
 class monitoring::grafana_stack::graphite::allinone (){
   notice('Graphite All In One class')
@@ -66,11 +75,15 @@ node default {
   include ::monitoring::grafana_stack::graphite::base
   include ::monitoring::grafana_stack::grafana::base
   include ::monitoring::grafana_stack::graphite::allinone
+  include ::monitoring::grafana_stack::nginx::base
+  include ::monitoring::grafana_stack::nginx::allinone
 
-  Class['monitoring::base']                             -> Class['monitoring::grafana_stack::base']
-  Class['monitoring::grafana_stack::base']              -> Class['monitoring::grafana_stack::graphite::base']
-  Class['monitoring::grafana_stack::base']              -> Class['monitoring::grafana_stack::grafana::base']
-  Class['monitoring::grafana_stack::graphite::base']    -> Class['monitoring::grafana_stack::graphite::allinone']
+  Class['monitoring::base']                               -> Class['monitoring::grafana_stack::base']
+  Class['monitoring::grafana_stack::base']                -> Class['monitoring::grafana_stack::graphite::base']
+  Class['monitoring::grafana_stack::base']                -> Class['monitoring::grafana_stack::grafana::base']
+  Class['monitoring::grafana_stack::graphite::base']      -> Class['monitoring::grafana_stack::graphite::allinone']
+  Class['monitoring::grafana_stack::graphite::allinone']  -> Class['monitoring::grafana_stack::nginx::base']
+  Class['monitoring::grafana_stack::nginx::base']         -> Class['monitoring::grafana_stack::nginx::allinone']
 
 }
 #endregion
