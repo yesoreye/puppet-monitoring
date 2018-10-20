@@ -81,7 +81,6 @@ class monitoring::grafana_stack::base (
   String        $path_dev_and_temp                   = lookup('profiles::grafana_stack::path::dev_and_temp_packages'),
   String        $path_installers                     = lookup('profiles::grafana_stack::path::installers'),
 ){
-  notice('Grafana Stack base class')
   ensure_packages($packages_grafana_stack)
   ensure_resource('user', [ $username_system ], {
     ensure => 'present',
@@ -100,18 +99,12 @@ class monitoring::grafana_stack::base (
 class monitoring::base (
   Array[String] $packages_base              = lookup('profiles::grafana_stack::packages::base'),
 ){
-
-  notice('Base class')
   ensure_packages($packages_base)
-
 }
 #endregion
 
 # region Node: Node settings
 node default {
-
-  notice(lookup('welcome'))
-
   include ::monitoring::base
   include ::monitoring::grafana_stack::base
   include ::monitoring::grafana_stack::graphite::base
@@ -119,13 +112,11 @@ node default {
   include ::monitoring::grafana_stack::graphite::allinone
   include ::monitoring::grafana_stack::nginx::base
   include ::monitoring::grafana_stack::nginx::allinone
-
   Class['monitoring::base']                               -> Class['monitoring::grafana_stack::base']
   Class['monitoring::grafana_stack::base']                -> Class['monitoring::grafana_stack::graphite::base']
   Class['monitoring::grafana_stack::base']                -> Class['monitoring::grafana_stack::grafana::base']
   Class['monitoring::grafana_stack::graphite::base']      -> Class['monitoring::grafana_stack::graphite::allinone']
   Class['monitoring::grafana_stack::graphite::allinone']  -> Class['monitoring::grafana_stack::nginx::base']
   Class['monitoring::grafana_stack::nginx::base']         -> Class['monitoring::grafana_stack::nginx::allinone']
-
 }
 #endregion
