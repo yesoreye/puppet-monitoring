@@ -44,7 +44,7 @@ class monitoring::grafana_stack::nginx::allinone {
   }
   ::nginx::resource::upstream { 'graphitewrite' :
     upstream_context  => 'stream',
-    memebers          => ['localhost:2003']
+    members          => ['localhost:2003']
   }
   ::nginx::resource::streamhost { 'graphitebackend' :
     ensure                  => 'present',
