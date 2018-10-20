@@ -16,13 +16,13 @@ profiles::grafana_stack::packages::base:
   - "jq"
 profiles::grafana_stack::packages::grafana_stack:
   - "epel-release"
-  - "libffi-devel"
-  - "openssl-devel"
-  - "policycoreutils-python"
+  - 'gcc'
 profiles::grafana_stack::packages::graphite:
+  - "policycoreutils-python"
   - 'python2-pip'
   - 'python-devel'
-  - 'gcc'
+  - "libffi-devel"
+  - "openssl-devel"
   - 'MySQL-python'
   - 'pyOpenSSL'
   - 'python-ldap'
