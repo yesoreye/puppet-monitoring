@@ -46,7 +46,7 @@ class monitoring::grafana_stack::nginx::allinone {
     upstream_context  => 'stream',
     memebers          => ['localhost:2003']
   }
-  ::nginx::resource::streamhosts { 'graphitebackend' :
+  ::nginx::resource::streamhost { 'graphitebackend' :
     ensure                  => 'present',
     listen_port             =>  514,
     listen_options          => 'udp',
