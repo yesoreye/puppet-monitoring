@@ -61,6 +61,7 @@ graphite::gr_timezone : "Europe/London"
 #region Nginx Settings
 nginx::daemon_user :  "%{lookup('profiles::grafana_stack::username::system')}"
 nginx::nginx_cfg_prepend :
-  include :
-    - '/etc/nginx/streams-enabled/*.conf'
+  stream :
+    include :
+      - '/etc/nginx/streams-enabled/*.conf'
 #endregion
