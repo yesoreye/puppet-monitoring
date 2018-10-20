@@ -8,9 +8,6 @@ class monitoring::grafana_stack::nginx::allinone {
       protocol => 'tcp',
       port     => 8888,
   }
-  ensure_resource('file', [ '/etc/nginx/conf.d' ],{
-    ensure => directory,
-  })
   ::nginx::resource::server { 'graphitewebserver' :
     ensure               => present,
     server_name          => ['_'],
@@ -46,6 +43,7 @@ class monitoring::grafana_stack::nginx::allinone {
       Selinux::Port['allow-graphite-8888']
     ],
   }
+  Selinux::Port["allow-graphite-8888"] -> Nginx::Resource::Server["graphitewebserver"]
 }
 #endregion
 
