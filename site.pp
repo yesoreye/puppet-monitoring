@@ -42,6 +42,18 @@ class monitoring::grafana_stack::nginx::allinone {
       Selinux::Port['allow-graphite-8888']
     ],
   }
+  ::nginx::resource::upstream { 'graphitewrite' :
+    upstream_context  => 'stream',
+    memebers          => ['localhost:2003']
+  }
+  ::nginx::resource::streamhosts { 'graphitebackend' :
+    ensure => 'present',
+    listen_port=>            514
+    listen_options =>         'udp'
+    proxy =>                  'graphitewrite'
+    proxy_read_timeout =>    '1'
+    proxy_connect_timeout =>  '1'
+  }
 }
 #endregion
 
