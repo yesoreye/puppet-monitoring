@@ -1,3 +1,4 @@
 *.tmp
 *.lock
+tmp/
 modules/
