@@ -47,12 +47,12 @@ class monitoring::grafana_stack::nginx::allinone {
     memebers          => ['localhost:2003']
   }
   ::nginx::resource::streamhosts { 'graphitebackend' :
-    ensure => 'present',
-    listen_port=>            514
-    listen_options =>         'udp'
-    proxy =>                  'graphitewrite'
-    proxy_read_timeout =>    '1'
-    proxy_connect_timeout =>  '1'
+    ensure                  => 'present',
+    listen_port             =>  514,
+    listen_options          => 'udp',
+    proxy                   => 'graphitewrite',
+    proxy_read_timeout      => '1',
+    proxy_connect_timeout   => '1',
   }
 }
 #endregion
