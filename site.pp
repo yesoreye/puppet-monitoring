@@ -1,6 +1,5 @@
 # region Class: monitoring::grafana_stack::nginx::allinone
 class monitoring::grafana_stack::nginx::allinone {
-  notice('Nginx All in one class')
   selinux::port {
     'allow-graphite-8888' :
       ensure   => 'present',
@@ -49,14 +48,12 @@ class monitoring::grafana_stack::nginx::allinone {
 
 # region Class: monitoring::grafana_stack::nginx::base
 class monitoring::grafana_stack::nginx::base {
-  notice('Nginx Base class')
   include ::nginx
 }
 #endregion
 
 # region Class: monitoring::grafana_stack::graphite::allinone
-class monitoring::grafana_stack::graphite::allinone (){
-  notice('Graphite All In One class')
+class monitoring::grafana_stack::graphite::allinone {
   include ::graphite
 }
 #endregion
@@ -65,14 +62,12 @@ class monitoring::grafana_stack::graphite::allinone (){
 class monitoring::grafana_stack::graphite::base (
   Array[String] $packages_graphite             = lookup('profiles::grafana_stack::packages::graphite'),
 ){
-  notice('Graphite base class')
   ensure_packages($packages_graphite)
 }
 #endregion
 
 # region Class: monitoring::grafana_stack::grafana::base
 class monitoring::grafana_stack::grafana::base {
-  notice('Grafana base class')
 }
 #endregion
 
