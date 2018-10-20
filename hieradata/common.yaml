@@ -1,6 +1,7 @@
-## General Settings
+#region General Settings
 welcome : "Welcome to Puppet monitoring"
-## Base Settings
+#endregion
+#region Base Settings
 profiles::grafana_stack::packages::base:
   - "wget"
   - "sudo"
@@ -41,7 +42,8 @@ profiles::grafana_stack::path::logs: "%{lookup('profiles::grafana_stack::path::d
 profiles::grafana_stack::path::puppet_scripts: "/etc/puppet"
 profiles::grafana_stack::path::dev_and_temp_packages: "%{lookup('profiles::grafana_stack::path::puppet_scripts')}/.dev"
 profiles::grafana_stack::path::installers: "%{lookup('profiles::grafana_stack::path::dev_and_temp_packages')}/packages"
-## Graphite Settings
+#endregion
+#region Graphite Settings
 _graphite::folder_ownership : "%{lookup('profiles::grafana_stack::username::system')}:%{lookup('profiles::grafana_stack::username::system')}"
 _graphite::gr_django_init_command : "PYTHONPATH=/opt/graphite/webapp django-admin.py migrate --settings=graphite.settings --run-syncdb"
 graphite::gr_django_init_command: bash -c 'chown -R %{lookup('_graphite::folder_ownership')} /opt/graphite/ && %{lookup('_graphite::gr_django_init_command')} && chown -R %{lookup('_graphite::folder_ownership')} /opt/graphite /opt/graphite/storage/log/*.log /opt/graphite/storage/graphite.db'
@@ -55,5 +57,7 @@ graphite::gr_web_user : "%{lookup('profiles::grafana_stack::username::system')}"
 graphite::gr_web_group : "%{lookup('profiles::grafana_stack::username::system')}"
 graphite::gr_web_server_port : 8888
 graphite::gr_timezone : "Europe/London"
-## Nginx Settings
+#endregion
+#region Nginx Settings
 nginx::daemon_user :  "%{lookup('profiles::grafana_stack::username::system')}"
+#endregion
