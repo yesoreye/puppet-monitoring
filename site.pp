@@ -42,7 +42,6 @@ class monitoring::grafana_stack::nginx::allinone {
       Selinux::Port['allow-graphite-8888']
     ],
   }
-  Selinux::Port["allow-graphite-8888"] -> Nginx::Resource::Server["graphitewebserver"]
 }
 #endregion
 
