@@ -7,6 +7,11 @@ class monitoring::grafana_stack::nginx::allinone {
       protocol => 'tcp',
       port     => 8888,
   }
+  ::nginx {
+    cfg_prepend => {
+      include => '/etc/nginx/streams-enabled/*.conf'
+    }
+  }
   ::nginx::resource::server { 'graphitewebserver' :
     ensure               => present,
     server_name          => ['_'],
