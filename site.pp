@@ -6,7 +6,7 @@ class monitoring::grafana_stack::nginx::allinone {
       seltype  => 'http_port_t',
       protocol => 'tcp',
       port     => 8888,
-  # }
+  }
   # selinux::port {
   #   'allow-graphite-514' :
   #     ensure   => 'present',
