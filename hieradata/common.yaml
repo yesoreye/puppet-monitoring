@@ -44,9 +44,9 @@ profiles::grafana_stack::path::dev_and_temp_packages: "%{lookup('profiles::grafa
 profiles::grafana_stack::path::installers: "%{lookup('profiles::grafana_stack::path::dev_and_temp_packages')}/packages"
 #endregion
 #region Graphite Settings
-profiles::grafana_stack::graphite::folder_ownership : "%{lookup('profiles::grafana_stack::username::system')}:%{lookup('profiles::grafana_stack::username::system')}"
+profiles::grafana_stack::graphite::folder_ownership : "chown -R %{lookup('profiles::grafana_stack::username::system')}:%{lookup('profiles::grafana_stack::username::system')} /opt/graphite"
 profiles::grafana_stack::graphite::gr_django_init_command : "PYTHONPATH=/opt/graphite/webapp django-admin.py migrate --settings=graphite.settings --run-syncdb"
-graphite::gr_django_init_command: bash -c 'chown -R %{lookup('profiles::grafana_stack::graphite::folder_ownership')} /opt/graphite/ && %{lookup('profiles::grafana_stack::graphite::gr_django_init_command')} && chown -R %{lookup(profiles::grafana_stack::graphite::folder_ownership ')} /opt/graphite /opt/graphite/storage/log/*.log /opt/graphite/storage/graphite.db'
+graphite::gr_django_init_command: bash -c '%{lookup('profiles::grafana_stack::graphite::folder_ownership')} && %{lookup('profiles::grafana_stack::graphite::gr_django_init_command')} && %{lookup('profiles::grafana_stack::graphite::folder_ownership')}'
 graphite::gr_django_ver: '1.11'
 graphite::gr_django_tagging_ver: '0.4.6'
 graphite::gr_whisper_ver : "1.0.2"
