@@ -7,13 +7,6 @@ class monitoring::grafana_stack::nginx::allinone {
       protocol => 'tcp',
       port     => 8888,
   }
-  # selinux::port {
-  #   'allow-graphite-514' :
-  #     ensure   => 'present',
-  #     seltype  => 'http_port_t',
-  #     protocol => 'udp',
-  #     port     => 514,
-  # }
   ::nginx::resource::server { 'graphitewebserver' :
     ensure               => present,
     server_name          => ['_'],
@@ -49,18 +42,24 @@ class monitoring::grafana_stack::nginx::allinone {
       Selinux::Port['allow-graphite-8888']
     ],
   }
-  # ::nginx::resource::upstream { 'graphitewrite' :
-  #   upstream_context  => 'stream',
-  #   members          => ['localhost:2003']
-  # }
-  # ::nginx::resource::streamhost { 'graphitebackend' :
-  #   ensure                  => 'present',
-  #   listen_port             =>  514,
-  #   listen_options          => 'udp',
-  #   proxy                   => 'graphitewrite',
-  #   proxy_read_timeout      => '1',
-  #   proxy_connect_timeout   => '1',
-  # }
+  selinux::port {
+    'allow-graphite-2018' :
+      ensure   => 'present',
+      seltype  => 'http_port_t',
+      protocol => 'udp',
+      port     => 2018,
+  }
+  ::nginx::resource::upstream { 'graphitewrite' :
+    upstream_context => 'stream',
+    members          => ['localhost:2003']
+  }
+  ::nginx::resource::streamhost { 'graphitebackend' :
+    ensure                => 'present',
+    listen_port           =>  2018,
+    proxy                 => 'graphitewrite',
+    proxy_read_timeout    => '1',
+    proxy_connect_timeout => '1',
+  }
 }
 #endregion
 
