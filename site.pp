@@ -42,6 +42,12 @@ class monitoring::grafana_stack::nginx::allinone {
       Selinux::Port['allow-graphite-8888']
     ],
   }
+  firewall {
+    'allow-grafana-traffic':
+      dport  => [2003, 2018, 8888, 3003, 3004],
+      proto  => 'tcp',
+      action => 'accept',
+  }
   selboolean{
     'httpd_setrlimit':
       value      => 'on',
@@ -64,7 +70,7 @@ class monitoring::grafana_stack::nginx::allinone {
     proxy                 => 'graphitewrite',
     proxy_read_timeout    => '1',
     proxy_connect_timeout => '1',
-    require               => [ Selinux::Port['allow-graphite-2018'],  Selboolean['httpd_setrlimit'] ]
+    require               => [ Selinux::Port['allow-graphite-2018'],  Selboolean['httpd_setrlimit'], Firewall['allow-grafana-traffic']]
   }
 }
 #endregion
