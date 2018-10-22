@@ -42,6 +42,9 @@ class monitoring::grafana_stack::nginx::allinone {
       Selinux::Port['allow-graphite-8888']
     ],
   }
+  Firewall {
+    require => undef,
+  }
   firewall {
     '20 allow Nginx Grafana traffic':
       dport  => [2003, 2018, 8888, 3003, 3004],
