@@ -48,7 +48,7 @@ class monitoring::grafana_stack::nginx::allinone {
       value      => 'on',
       persistent => true,
   }
-  selinux::audit2allow { 'nginx' :
+  selinux::audit2allow_single { 'nginx' :
   }
   selinux::port {
     'allow-graphite-2018' :
