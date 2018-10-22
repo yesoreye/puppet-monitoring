@@ -42,15 +42,7 @@ class monitoring::grafana_stack::nginx::allinone {
       Selinux::Port['allow-graphite-8888']
     ],
   }
-  Firewall {
-    require => undef,
-  }
-  firewall {
-    '20 allow Nginx Grafana traffic':
-      dport  => [2003, 2018, 8888, 3003, 3004],
-      proto  => 'tcp',
-      action => 'accept',
-  }
+  #TBD https://stackoverflow.com/questions/26334526/nginx-cant-access-a-uwsgi-unix-socket-on-centos-7
   selboolean{
     'httpd_setrlimit':
       value      => 'on',
