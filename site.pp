@@ -42,31 +42,31 @@ class monitoring::grafana_stack::nginx::allinone {
       Selinux::Port['allow-graphite-8888']
     ],
   }
-  #TBD https://stackoverflow.com/questions/26334526/nginx-cant-access-a-uwsgi-unix-socket-on-centos-7
-  selboolean{
-    'httpd_setrlimit':
-      value      => 'on',
-      persistent => true,
-  }
-  selinux::port {
-    'allow-graphite-2018' :
-      ensure   => 'present',
-      seltype  => 'http_port_t',
-      protocol => 'udp',
-      port     => 2018,
-  }
-  ::nginx::resource::upstream { 'graphitewrite' :
-    upstream_context => 'stream',
-    members          => ['localhost:2003']
-  }
-  ::nginx::resource::streamhost { 'graphitebackend' :
-    ensure                => 'present',
-    listen_port           =>  2018,
-    proxy                 => 'graphitewrite',
-    proxy_read_timeout    => '1',
-    proxy_connect_timeout => '1',
-    require               => [ Selinux::Port['allow-graphite-2018'],  Selboolean['httpd_setrlimit']]
-  }
+  # # TBD https://stackoverflow.com/questions/26334526/nginx-cant-access-a-uwsgi-unix-socket-on-centos-7
+  # selboolean{
+  #   'httpd_setrlimit':
+  #     value      => 'on',
+  #     persistent => true,
+  # }
+  # selinux::port {
+  #   'allow-graphite-2018' :
+  #     ensure   => 'present',
+  #     seltype  => 'http_port_t',
+  #     protocol => 'udp',
+  #     port     => 2018,
+  # }
+  # ::nginx::resource::upstream { 'graphitewrite' :
+  #   upstream_context => 'stream',
+  #   members          => ['localhost:2003']
+  # }
+  # ::nginx::resource::streamhost { 'graphitebackend' :
+  #   ensure                => 'present',
+  #   listen_port           =>  2018,
+  #   proxy                 => 'graphitewrite',
+  #   proxy_read_timeout    => '1',
+  #   proxy_connect_timeout => '1',
+  #   require               => [ Selinux::Port['allow-graphite-2018'],  Selboolean['httpd_setrlimit']]
+  # }
 }
 #endregion
 
